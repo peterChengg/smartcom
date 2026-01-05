@@ -45,7 +45,7 @@ Welcome to the SmartCom documentation center.
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/smartcom/smartcom.git
+   git clone https://github.com/peterChengg/smartcom.git
    cd smartcom
    ```
 
@@ -151,8 +151,8 @@ Current version: **0.1.0-alpha**
 ## 🤝 Getting Help
 
 - **Documentation**: Check the relevant sections in this documentation center
-- **Issues**: Report bugs and request features on [GitHub Issues](https://github.com/smartcom/smartcom/issues)
-- **Discussions**: Join the [GitHub Discussions](https://github.com/smartcom/smartcom/discussions)
+- **Issues**: Report bugs and request features on [GitHub Issues](https://github.com/peterChengg/smartcom/issues)
+- **Discussions**: Join the [GitHub Discussions](https://github.com/peterChengg/smartcom/discussions)
 - **Community**: Connect with other users and developers
 
 ## 📄 License
@@ -161,4 +161,4 @@ SmartCom is licensed under the MIT License. See the [LICENSE](../LICENSE) file f
 
 ---
 
-For the most up-to-date information, visit the [SmartCom GitHub Repository](https://github.com/smartcom/smartcom).
+For the most up-to-date information, visit the [SmartCom GitHub Repository](https://github.com/peterChengg/smartcom).

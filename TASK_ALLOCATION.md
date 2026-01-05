@@ -5,6 +5,24 @@
 ### 项目简介
 SmartCom 是一款功能强大的自定义串口通信工具，支持多种串口驱动器（CH340、CP2102），提供可配置的应用层协议解析、数据过滤、波形可视化等高级功能。
 
+### Git仓库信息
+
+#### 仓库配置
+- **仓库地址**: https://github.com/peterChengg/smartcom.git
+- **主要维护者**: peterChengg (1033369854@qq.com)
+- **项目名称**: SmartCom - 自定义串口通信工具
+
+#### 本地配置
+```bash
+# 设置Git用户信息（如需更改）
+git config user.name "peterChengg"
+git config user.email "1033369854@qq.com"
+
+# 克隆仓库
+git clone https://github.com/peterChengg/smartcom.git
+cd smartcom
+```
+
 ### Git分支管理策略
 
 #### 分支命名规范

@@ -14,7 +14,7 @@ Thank you for your interest in contributing to SmartCom! This document provides 
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/smartcom/smartcom.git
+   git clone https://github.com/peterChengg/smartcom.git
    cd smartcom
    ```
 

@@ -23,7 +23,7 @@ setup(
     description="Custom serial port communication tool with protocol parsing",
     long_description=read_readme(),
     long_description_content_type="text/markdown",
-    url="https://github.com/smartcom/smartcom",
+    url="https://github.com/peterChengg/smartcom",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 3 - Alpha",
