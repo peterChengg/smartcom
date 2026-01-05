@@ -1,0 +1,1 @@
+"""UI tests with pytest-qt."""
