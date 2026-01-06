@@ -16,6 +16,7 @@ logger = logging.getLogger(__name__)
 
 class FieldType(Enum):
     """Protocol field types."""
+
     HEAD = "head"
     LENGTH = "length"
     CMD = "cmd"
@@ -27,6 +28,7 @@ class FieldType(Enum):
 @dataclass
 class ProtocolField:
     """Protocol field definition."""
+
     name: str
     field_type: FieldType
     length: int
@@ -38,6 +40,7 @@ class ProtocolField:
 @dataclass
 class ProtocolDefinition:
     """Protocol structure definition."""
+
     name: str
     fields: List[ProtocolField]
     encryption: Optional[str] = None
@@ -46,13 +49,13 @@ class ProtocolDefinition:
 
 class ProtocolParser:
     """Configurable protocol parser."""
-    
+
     def __init__(self, protocol: ProtocolDefinition):
         self.protocol = protocol
         self.buffer = bytearray()
         self.last_data_time = 0
         self.timeout = 500  # Default 500ms
-        
+
     async def parse_data(self, data: bytes) -> Optional[Dict[str, Any]]:
         """Parse incoming data according to protocol definition."""
         # TODO: Implement actual protocol parsing

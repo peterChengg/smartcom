@@ -15,6 +15,6 @@ from src.ui.main_window import MainWindow
 
 __all__ = [
     "SerialManager",
-    "ProtocolParser", 
+    "ProtocolParser",
     "MainWindow",
 ]

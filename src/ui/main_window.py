@@ -16,11 +16,11 @@ logger = logging.getLogger(__name__)
 
 class MainWindow:
     """Main application window."""
-    
+
     def __init__(self, settings: "AppSettings"):
         self.settings = settings
         logger.info("Main window initialized")
-        
+
     def show(self):
         """Show the main window."""
         # TODO: Implement actual window display

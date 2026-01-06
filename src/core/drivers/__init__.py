@@ -6,12 +6,12 @@ supporting multiple driver types including CH340, CP2102, and generic serial.
 """
 
 from .base import (
-    SerialDriver, 
-    SerialPortInfo, 
+    SerialDriver,
+    SerialPortInfo,
     SerialDriverError,
     DriverNotAvailableError,
     SerialConnectionError,
-    DriverType
+    DriverType,
 )
 from .ch340 import CH340Driver
 from .cp2102 import CP2102Driver
@@ -19,14 +19,14 @@ from .generic import GenericSerialDriver
 from .manager import DriverManager
 
 __all__ = [
-    'SerialDriver',
-    'SerialPortInfo',
-    'SerialDriverError',
-    'DriverNotAvailableError',
-    'SerialConnectionError',
-    'DriverType',
-    'CH340Driver',
-    'CP2102Driver',
-    'GenericSerialDriver',
-    'DriverManager',
+    "SerialDriver",
+    "SerialPortInfo",
+    "SerialDriverError",
+    "DriverNotAvailableError",
+    "SerialConnectionError",
+    "DriverType",
+    "CH340Driver",
+    "CP2102Driver",
+    "GenericSerialDriver",
+    "DriverManager",
 ]

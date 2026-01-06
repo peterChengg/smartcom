@@ -33,22 +33,22 @@ def main() -> int:
     # Setup logging
     setup_logging()
     logger = logging.getLogger(__name__)
-    
+
     logger.info("Starting SmartCom application")
-    
+
     try:
         # Create settings
         settings = AppSettings()
-        
+
         # Create main window (GUI will be implemented later)
         main_window = MainWindow(settings)
-        
+
         logger.info("Application initialized successfully")
-        
+
         # For now, just return success
         # GUI event loop will be implemented when PyQt6 is added
         return 0
-        
+
     except Exception as e:
         logger.error("Failed to start application: %s", str(e))
         return 1
