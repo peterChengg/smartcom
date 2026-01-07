@@ -82,6 +82,18 @@ class DataStats:
         """Get connection uptime in seconds."""
         return time.time() - self.start_time if self.start_time > 0 else 0.0
 
+    def to_dict(self) -> dict:
+        """Convert to dictionary."""
+        return {
+            "bytes_sent": self.bytes_sent,
+            "bytes_received": self.bytes_received,
+            "packets_sent": self.packets_sent,
+            "packets_received": self.packets_received,
+            "bytes_per_second": self.bytes_per_second,
+            "uptime": self.get_uptime(),
+            "last_activity": self.last_activity,
+        }
+
 
 @dataclass
 class PacketInfo:
@@ -124,10 +136,8 @@ class PacketAssembler:
         self.expected_length: Optional[int] = None
         self.packet_timeout = packet_timeout
         self.last_data_time: float = 0.0
-        self.assembler_state: str = (
-            "idle"  # idle, collecting, assembling, complete, timeout
-        )
         self.assembler_state: str = "idle"
+        self.logger = logging.getLogger(__name__)
 
     def reset(self) -> None:
         """Reset assembler state."""
@@ -278,7 +288,7 @@ class PacketAssembler:
         # Simple checksum: CRC16
         if len(self.buffer) >= 3:
             # Try to validate last byte as checksum
-            data = self.buffer[:-1]
+            data = bytes(self.buffer[:-1])
             checksum = self._calculate_crc16(data)
 
             if checksum == self.buffer[-1]:
@@ -292,7 +302,7 @@ class PacketAssembler:
 
     def _calculate_crc16(self, data: bytes) -> int:
         """Calculate CRC16 checksum."""
-        crc = crcmod.crc16(data)
+        crc = crcmod.crc16(bytes(data))
         return crc
 
     def _calculate_modbus_crc(self, data: bytes, polynomial: int = 0xA001) -> int:
@@ -371,6 +381,7 @@ class PacketBuffer:
         self.queue: deque[PacketInfo] = deque(maxlen=100)
         self.stats = DataStats()
         self.stats.start_time = time.time()
+        self.logger = logging.getLogger(__name__)
 
     def add_packet(self, packet: PacketInfo) -> None:
         """
