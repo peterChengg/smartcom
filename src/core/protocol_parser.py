@@ -121,7 +121,7 @@ class ProtocolParser:
     def __init__(self, protocol: ProtocolDefinition):
         self.protocol = protocol
         self.buffer = bytearray()
-        self.last_data_time = 0
+        self.last_data_time = 0.0
         self.timeout = protocol.parse_timeout * 1000  # Convert to ms
         self.state = ParseState.IDLE
         self.packets: List[ParsedPacket] = []
@@ -575,11 +575,11 @@ class ProtocolParser:
         if len(data) == 1:
             return data[0]
         elif len(data) == 2:
-            return struct.unpack(">H", data)[0]
+            return int(struct.unpack(">H", data)[0])
         elif len(data) == 4:
-            return struct.unpack(">I", data)[0]
+            return int(struct.unpack(">I", data)[0])
         elif len(data) == 8:
-            return struct.unpack(">Q", data)[0]
+            return int(struct.unpack(">Q", data)[0])
         else:
             return int.from_bytes(data, byteorder="big")
 
