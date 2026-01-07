@@ -9,15 +9,15 @@ import sys
 from pathlib import Path
 from typing import Optional
 
+# Add src to path for imports (must be before local imports)
+sys.path.insert(0, str(Path(__file__).parent))
+
 # PyQt6 imports will be added when GUI is implemented
 # from PyQt6.QtWidgets import QApplication
 # from PyQt6.QtCore import QSettings
 
-# Add src to path for imports
-sys.path.insert(0, str(Path(__file__).parent))
-
-from src.config.settings import AppSettings
-from src.ui.main_window import MainWindow
+from src.config.settings import AppSettings  # noqa: E402
+from src.ui.main_window import MainWindow  # noqa: E402
 
 
 def setup_logging(log_level: str = "INFO") -> None:
@@ -41,7 +41,7 @@ def main() -> int:
         settings = AppSettings()
 
         # Create main window (GUI will be implemented later)
-        main_window = MainWindow(settings)
+        MainWindow(settings)
 
         logger.info("Application initialized successfully")
 

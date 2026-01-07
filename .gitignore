@@ -45,3 +45,15 @@ venv.bak/
 .DS_Store
 .vscode/
 .idea/
+
+# Temporary reports and documentation
+AGENT_*.md
+TEST_*.md
+CI_*.md
+PUSH_*.md
+FINAL_*.md
+*FIX_REPORT*.md
+*CHECKER*.md
+*_VERIFICATION.md
+*_SUMMARY.md
+*_TEMPLATE*.md

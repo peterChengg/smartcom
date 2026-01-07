@@ -18,7 +18,7 @@ import pytest
 src_path = Path(__file__).parent.parent / "src"
 sys.path.insert(0, str(src_path))
 
-from src.core.drivers.base import (
+from src.core.drivers.base import (  # noqa: E402
     DriverNotAvailableError,
     DriverType,
     SerialConnectionError,
@@ -26,10 +26,10 @@ from src.core.drivers.base import (
     SerialDriverError,
     SerialPortInfo,
 )
-from src.core.drivers.ch340 import CH340Driver
-from src.core.drivers.cp2102 import CP2102Driver
-from src.core.drivers.generic import GenericSerialDriver
-from src.core.drivers.manager import DriverManager
+from src.core.drivers.ch340 import CH340Driver  # noqa: E402
+from src.core.drivers.cp2102 import CP2102Driver  # noqa: E402
+from src.core.drivers.generic import GenericSerialDriver  # noqa: E402
+from src.core.drivers.manager import DriverManager  # noqa: E402
 
 
 class TestSerialPortInfo:
