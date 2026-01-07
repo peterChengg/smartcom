@@ -131,16 +131,23 @@ Current version: **0.1.0-alpha**
 
 ### Completed Features
 - ✅ Project structure and development environment
-- ✅ Serial port abstraction layer
-- ✅ Basic protocol parsing framework
+- ✅ Serial port abstraction layer (AgentA)
+- ✅ Core protocol parsing engine (AgentB - B2)
+- ✅ Basic protocol parsing framework (AgentA)
 - ✅ Configuration management system
 - ✅ Testing infrastructure
+- ✅ Protocol parser with real-time frame identification (AgentB - B2)
+- ✅ Timeout management and buffer handling (AgentB - B2)
+- ✅ Multiple checksum types (XOR, CRC16, CRC32, SUM) (AgentB - B2)
 
 ### In Progress
-- 🔄 GUI implementation
-- 🔄 Advanced protocol features
-- 🔄 Data filtering and processing
-- 🔄 Performance optimization
+- 🔄 GUI implementation (AgentA)
+- 🔄 Protocol definition DSL (AgentB - B1)
+- 🔄 Advanced protocol features (AgentB - B3-B7)
+- 🔄 Data filtering and processing (AgentB - B4)
+- 🔄 Regex-based data filtering (AgentB - B6)
+- 🔄 Waveform visualization (AgentB - B7)
+- 🔄 Multi-window display system
 
 ### Planned Features
 - 📋 Waveform visualization
