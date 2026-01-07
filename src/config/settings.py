@@ -2,8 +2,8 @@
 Application settings and configuration management.
 """
 
-from typing import Any, Dict, Optional
 import logging
+from typing import Any, Dict, Optional
 
 logger = logging.getLogger(__name__)
 

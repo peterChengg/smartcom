@@ -5,17 +5,18 @@ This module provides support for CP210x USB-to-serial bridge devices,
 which are popular USB-to-UART bridge chips from Silicon Labs.
 """
 
-from typing import List, Dict, Any, Optional
+from typing import Any, Dict, List, Optional
+
 import serial
 import serial.tools.list_ports
 
 from .base import (
-    SerialDriver,
-    SerialPortInfo,
+    DriverNotAvailableError,
     DriverType,
     SerialConnectionError,
-    DriverNotAvailableError,
+    SerialDriver,
     SerialDriverError,
+    SerialPortInfo,
 )
 
 logger = __import__("logging").getLogger(__name__)

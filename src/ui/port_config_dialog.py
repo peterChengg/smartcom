@@ -5,25 +5,26 @@ This module provides user interface components for serial port configuration,
 including port selection, parameter setting, and connection management.
 """
 
-from typing import Optional, Dict, Any
-from enum import Enum
 import logging
-from PyQt6.QtWidgets import (
-    QWidget,
-    QVBoxLayout,
-    QHBoxLayout,
-    QFormLayout,
-    QLabel,
-    QComboBox,
-    QSpinBox,
-    QCheckBox,
-    QPushButton,
-    QGroupBox,
-    QScrollArea,
-    QTextEdit,
-)
-from PyQt6.QtCore import pyqtSignal
 from dataclasses import dataclass
+from enum import Enum
+from typing import Any, Dict, Optional
+
+from PyQt6.QtCore import pyqtSignal
+from PyQt6.QtWidgets import (
+    QCheckBox,
+    QComboBox,
+    QFormLayout,
+    QGroupBox,
+    QHBoxLayout,
+    QLabel,
+    QPushButton,
+    QScrollArea,
+    QSpinBox,
+    QTextEdit,
+    QVBoxLayout,
+    QWidget,
+)
 
 logger = logging.getLogger(__name__)
 

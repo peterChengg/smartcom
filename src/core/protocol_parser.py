@@ -5,11 +5,11 @@ This module provides configurable protocol parsing capabilities
 for custom serial communication protocols.
 """
 
-from typing import Optional, Dict, Any, List
-from dataclasses import dataclass
-from enum import Enum
 import asyncio
 import logging
+from dataclasses import dataclass
+from enum import Enum
+from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 

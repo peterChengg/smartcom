@@ -5,25 +5,26 @@ This module tests the serial driver functionality including
 device detection, connection management, and data transmission.
 """
 
-import pytest
 import asyncio
-from unittest.mock import Mock, patch, MagicMock
 
 # Import from the drivers module
 import sys
 from pathlib import Path
+from unittest.mock import MagicMock, Mock, patch
+
+import pytest
 
 # Add src to path
 src_path = Path(__file__).parent.parent / "src"
 sys.path.insert(0, str(src_path))
 
 from src.core.drivers.base import (
-    SerialDriver,
-    SerialPortInfo,
-    DriverType,
-    SerialDriverError,
     DriverNotAvailableError,
+    DriverType,
     SerialConnectionError,
+    SerialDriver,
+    SerialDriverError,
+    SerialPortInfo,
 )
 from src.core.drivers.ch340 import CH340Driver
 from src.core.drivers.cp2102 import CP2102Driver

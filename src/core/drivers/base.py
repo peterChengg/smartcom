@@ -6,12 +6,12 @@ allowing for multiple driver implementations (CH340, CP2102, etc.)
 with a unified interface.
 """
 
-from abc import ABC, abstractmethod
-from typing import List, Dict, Optional, Any
-from dataclasses import dataclass
-from enum import Enum
 import asyncio
 import logging
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
+from enum import Enum
+from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 

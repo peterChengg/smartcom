@@ -5,10 +5,10 @@ This module provides high-level serial port communication functionality,
 including connection management, data transmission, and statistics.
 """
 
-from typing import Optional, Any
-from dataclasses import dataclass
 import asyncio
 import logging
+from dataclasses import dataclass
+from typing import Any, Optional
 
 logger = logging.getLogger(__name__)
 

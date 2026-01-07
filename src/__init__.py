@@ -9,8 +9,8 @@ __version__ = "0.1.0-alpha"
 __author__ = "SmartCom Team"
 __email__ = "team@smartcom.dev"
 
-from src.core.serial_manager import SerialManager
 from src.core.protocol_parser import ProtocolParser
+from src.core.serial_manager import SerialManager
 from src.ui.main_window import MainWindow
 
 __all__ = [

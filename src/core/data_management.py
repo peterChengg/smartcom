@@ -5,16 +5,17 @@ This module provides functionality for tracking data statistics,
 packet assembly/disassembly, and smart packet buffering.
 """
 
-from typing import List, Dict, Optional, Any, Callable
-from dataclasses import dataclass, field
-from enum import Enum
-from collections import deque
 import asyncio
+import hashlib
 import logging
 import struct
-import crcmod
-import hashlib
 import time
+from collections import deque
+from dataclasses import dataclass, field
+from enum import Enum
+from typing import Any, Callable, Dict, List, Optional
+
+import crcmod
 
 logger = logging.getLogger(__name__)
 

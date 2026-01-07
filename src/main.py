@@ -3,9 +3,9 @@
 SmartCom - 自定义串口工具主入口
 """
 
-import sys
 import asyncio
 import logging
+import sys
 from pathlib import Path
 from typing import Optional
 
@@ -16,8 +16,8 @@ from typing import Optional
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent))
 
-from src.ui.main_window import MainWindow
 from src.config.settings import AppSettings
+from src.ui.main_window import MainWindow
 
 
 def setup_logging(log_level: str = "INFO") -> None:

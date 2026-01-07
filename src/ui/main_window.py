@@ -5,8 +5,8 @@ This module provides the main GUI window for SmartCom application
 with multi-window display capabilities.
 """
 
-from typing import TYPE_CHECKING
 import logging
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from src.config.settings import AppSettings

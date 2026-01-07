@@ -5,10 +5,10 @@ This module provides automatic detection of available serial port drivers
 and creates appropriate driver instances for detected devices.
 """
 
-from typing import List, Dict, Optional, Type, Any
 import logging
+from typing import Any, Dict, List, Optional, Type
 
-from .base import SerialDriver, SerialPortInfo, DriverType, DriverNotAvailableError
+from .base import DriverNotAvailableError, DriverType, SerialDriver, SerialPortInfo
 from .generic import GenericSerialDriver
 
 logger = logging.getLogger(__name__)

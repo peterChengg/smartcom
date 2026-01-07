@@ -2,9 +2,10 @@
 Test basic project structure and imports.
 """
 
-import pytest
 import sys
 from pathlib import Path
+
+import pytest
 
 # Add src to path for testing
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
@@ -13,10 +14,10 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 def test_project_imports():
     """Test that basic modules can be imported."""
     try:
-        import src.core.serial_manager
-        import src.core.protocol_parser
-        import src.ui.main_window
         import src.config.settings
+        import src.core.protocol_parser
+        import src.core.serial_manager
+        import src.ui.main_window
 
         assert True
     except ImportError as e:
@@ -70,7 +71,7 @@ class TestProtocolParser:
 
     def test_protocol_field(self):
         """Test ProtocolField dataclass."""
-        from src.core.protocol_parser import ProtocolField, FieldType
+        from src.core.protocol_parser import FieldType, ProtocolField
 
         field = ProtocolField(
             name="head", field_type=FieldType.HEAD, length=1, offset=0

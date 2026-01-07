@@ -5,17 +5,18 @@ This is a fallback driver that can handle most standard serial ports
 that are not specifically supported by CH340 or CP2102 drivers.
 """
 
-from typing import List, Dict, Any, Optional
+from typing import Any, Dict, List, Optional
+
 import serial
 import serial.tools.list_ports
 
 from .base import (
-    SerialDriver,
-    SerialPortInfo,
+    DriverNotAvailableError,
     DriverType,
     SerialConnectionError,
-    DriverNotAvailableError,
+    SerialDriver,
     SerialDriverError,
+    SerialPortInfo,
 )
 
 logger = __import__("logging").getLogger(__name__)

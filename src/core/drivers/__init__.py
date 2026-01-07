@@ -6,12 +6,12 @@ supporting multiple driver types including CH340, CP2102, and generic serial.
 """
 
 from .base import (
-    SerialDriver,
-    SerialPortInfo,
-    SerialDriverError,
     DriverNotAvailableError,
-    SerialConnectionError,
     DriverType,
+    SerialConnectionError,
+    SerialDriver,
+    SerialDriverError,
+    SerialPortInfo,
 )
 from .ch340 import CH340Driver
 from .cp2102 import CP2102Driver
