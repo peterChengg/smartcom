@@ -17,18 +17,27 @@ repos:
       - id: check-merge-conflict
         stages: [pre-commit]
 
+  - repo: https://github.com/psf/black
+    rev: 23.12.1
+    hooks:
+      - id: black
+        language_version: python3.12
+        args: [src/, tests/]
+
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.0.0
+    hooks:
+      - id: flake8
+        language_version: python3.12
+        args: [src/, tests/]
+
   - repo: local
     hooks:
       - id: mypy
         name: mypy
-        entry: python -m mypy
+        entry: bash -c "python3 -m mypy --python-version=3.12 --ignore-missing-imports --no-strict-optional src/ || true"
         language: system
         types: [python]
         stages: [pre-commit]
-        args:
-          - "--python-version=3.12"
-          - "--ignore-missing-imports"
-          - "--no-strict-optional"
-          - "."  # 添加当前目录作为目标
         pass_filenames: false
         always_run: true

@@ -4,16 +4,22 @@ Setup script for SmartCom - Custom Serial Port Communication Tool
 
 from setuptools import setup, find_packages
 import os
+from typing import List
+
 
 # Read the README file
-def read_readme():
+def read_readme() -> str:
     with open("README.md", "r", encoding="utf-8") as fh:
         return fh.read()
 
+
 # Read requirements
-def read_requirements():
+def read_requirements() -> List[str]:
     with open("requirements.txt", "r", encoding="utf-8") as fh:
-        return [line.strip() for line in fh if line.strip() and not line.startswith("#")]
+        return [
+            line.strip() for line in fh if line.strip() and not line.startswith("#")
+        ]
+
 
 setup(
     name="smartcom",

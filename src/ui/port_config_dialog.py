@@ -53,6 +53,7 @@ class PortConfig:
 
     port: str
     baudrate: int = 9600
+    bytesize: int = 8
     parity: str = "N"
     stopbits: int = 1
     timeout: float = 1.0
@@ -117,7 +118,7 @@ class PortConfigDialog(QWidget):
         2: StopBits.TWO,
     }
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None) -> None:
         super().__init__(parent)
         self.current_config = PortConfig(port="")
         self.setWindowTitle("Serial Port Configuration")
@@ -125,7 +126,7 @@ class PortConfigDialog(QWidget):
 
         self.setup_ui()
 
-    def setup_ui(self):
+    def setup_ui(self) -> None:
         """Setup UI layout."""
         layout = QVBoxLayout()
 
@@ -301,31 +302,31 @@ class PortConfigDialog(QWidget):
         widget.setLayout(layout)
         return widget
 
-    def refresh_ports(self):
+    def refresh_ports(self) -> None:
         """Refresh available serial ports."""
         # TODO: Implement port refresh
         logger.info("Refresh ports called")
         self.port_combo.clear()
         self.port_combo.addItems(["/dev/ttyUSB0", "/dev/ttyUSB1"])
 
-    def on_connect(self):
+    def on_connect(self) -> None:
         """Handle connect button click."""
         config = self.get_current_config()
         self.connection_requested.emit(config)
         self.logger.info(f"Connect requested: {config}")
 
-    def on_disconnect(self):
+    def on_disconnect(self) -> None:
         """Handle disconnect button click."""
         self.logger.info("Disconnect requested")
         self.connection_requested.emit({"action": "disconnect"})
 
-    def on_apply(self):
+    def on_apply(self) -> None:
         """Handle apply button click."""
         config = self.get_current_config()
         self.config_changed.emit(config)
         self.logger.info(f"Config changed: {config}")
 
-    def on_save(self):
+    def on_save(self) -> None:
         """Handle save button click."""
         config = self.get_current_config()
         self.config_saved.emit(config)
@@ -344,7 +345,7 @@ class PortConfigDialog(QWidget):
             dsrdtr=self.dsrdtr_cb.isChecked(),
         )
 
-    def load_saved_configs(self):
+    def load_saved_configs(self) -> None:
         """Load saved configurations."""
         # TODO: Implement config loading
         logger.info("Load saved configs called")

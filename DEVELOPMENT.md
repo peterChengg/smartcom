@@ -45,7 +45,7 @@ SmartCom aims to be:
 class SerialDriver(ABC):
     @abstractmethod
     def detect_devices() -> List[str]: ...
-    
+
     @abstractmethod
     async def connect(config: SerialConfig) -> bool: ...
 
@@ -77,7 +77,7 @@ class ProtocolParser:
 ```python
 class MainWindow(QMainWindow):
     def __init__(self, settings: AppSettings): ...
-    
+
 class WindowManager:
     def create_window(self, window_type: str) -> QWidget: ...
     def sync_data(self, data: Any): ...
@@ -107,20 +107,20 @@ class AppSettings:
 ```python
 # Good function design
 async def parse_serial_data(
-    self, 
-    data: bytes, 
+    self,
+    data: bytes,
     timeout: float = DEFAULT_TIMEOUT_MS
 ) -> Optional[Dict[str, Any]]:
     """
     Parse incoming serial data according to configured protocol.
-    
+
     Args:
         data: Raw bytes to parse
         timeout: Maximum parsing time in milliseconds
-        
+
     Returns:
         Parsed data dictionary or None if parsing failed
-        
+
     Raises:
         ProtocolParseError: When protocol format is invalid
     """
@@ -163,7 +163,7 @@ class DataProcessor:
         try:
             while True:
                 data = await asyncio.wait_for(
-                    self.serial.read_data(), 
+                    self.serial.read_data(),
                     timeout=1.0
                 )
                 await self.process_packet(data)
@@ -183,14 +183,14 @@ class TestSerialManager:
     def mock_driver(self):
         with patch('src.core.drivers.ch340.CH340Driver') as mock:
             yield mock
-    
+
     @pytest.mark.asyncio
     async def test_connect_success(self, mock_driver):
         manager = SerialManager(mock_driver)
         result = await manager.connect(SerialConfig(port="/dev/ttyUSB0"))
         assert result is True
         mock_driver.connect.assert_called_once()
-    
+
     @pytest.mark.asyncio
     async def test_write_data_not_connected(self):
         manager = SerialManager()
@@ -205,14 +205,14 @@ class TestSerialManager:
 async def test_protocol_parsing_performance():
     parser = ProtocolParser(test_protocol)
     test_data = generate_large_dataset(10000)
-    
+
     start_time = time.time()
     for data in test_data:
         await parser.parse_data(data)
-    
+
     parse_time = time.time() - start_time
     avg_time = parse_time / len(test_data) * 1000
-    
+
     assert avg_time < 10, f"Parse time {avg_time:.2f}ms > 10ms"
 ```
 
@@ -233,7 +233,7 @@ def process_packet(self, packet: bytes):
         packet_hash=hash(packet),
         timestamp=time.time()
     )
-    
+
     try:
         result = self.parser.parse(packet)
         logger.debug("Packet parsed successfully", fields=list(result.keys()))
@@ -307,7 +307,7 @@ asyncio.run(test_connection())
 def benchmark_protocol_parser():
     parser = ProtocolParser(test_protocol)
     test_packets = generate_test_packets(1000)
-    
+
     # Measure parsing time
     times = []
     for packet in test_packets:
@@ -315,13 +315,13 @@ def benchmark_protocol_parser():
         result = asyncio.run(parser.parse_data(packet))
         end = time.perf_counter()
         times.append((end - start) * 1000)
-    
+
     avg_time = sum(times) / len(times)
     max_time = max(times)
-    
+
     print(f"Average parse time: {avg_time:.2f}ms")
     print(f"Maximum parse time: {max_time:.2f}ms")
-    
+
     assert avg_time < 10, f"Average time {avg_time:.2f}ms exceeds 10ms limit"
 ```
 
@@ -344,15 +344,15 @@ def benchmark_protocol_parser():
 ```python
 class ProtocolParser:
     """Parse serial data according to configurable protocol definitions.
-    
+
     This class provides real-time protocol parsing capabilities with support
     for custom field definitions, validation rules, and error handling.
-    
+
     Attributes:
         protocol: The protocol definition used for parsing
         buffer: Internal data buffer for incomplete packets
         timeout: Maximum parsing time in milliseconds
-        
+
     Example:
         >>> protocol = ProtocolDefinition(
         ...     name="TestProtocol",

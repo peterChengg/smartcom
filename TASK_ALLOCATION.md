@@ -256,12 +256,12 @@ class SerialDriver(ABC):
     def detect_devices(self) -> List[str]:
         """检测可用的串口设备"""
         pass
-    
+
     @abstractmethod
     def connect(self, port: str, **kwargs) -> bool:
         """连接到指定串口"""
         pass
-    
+
     @abstractmethod
     def disconnect(self) -> None:
         """断开连接"""
@@ -273,7 +273,7 @@ class CH340Driver(SerialDriver):
         # CH340设备检测逻辑
         pass
 
-# CP2102驱动实现  
+# CP2102驱动实现
 class CP2102Driver(SerialDriver):
     def detect_devices(self) -> List[str]:
         # CP2102设备检测逻辑
@@ -337,8 +337,8 @@ class SerialManager:
         self.driver = driver
         self.serial: Optional[Serial] = None
         self.is_connected = False
-    
-    async def connect(self, port: str, baudrate: int = 9600, 
+
+    async def connect(self, port: str, baudrate: int = 9600,
                      bytesize: int = 8, parity: str = 'N',
                      stopbits: int = 1, **kwargs) -> bool:
         """异步连接串口"""
@@ -356,7 +356,7 @@ class SerialManager:
         except Exception as e:
             print(f"Connection failed: {e}")
             return False
-    
+
     async def read_data(self) -> bytes:
         """异步读取数据"""
         if not self.is_connected:
@@ -408,17 +408,17 @@ class PacketManager:
         self.max_packet_size = max_packet_size
         self.stats = DataStats()
         self.stats.start_time = time.time()
-    
+
     def split_packet(self, data: bytes) -> List[bytes]:
         """智能分包算法"""
         if len(data) <= self.max_packet_size:
             return [data]
-        
+
         packets = []
         for i in range(0, len(data), self.max_packet_size):
             packets.append(data[i:i + self.max_packet_size])
         return packets
-    
+
     def reassemble_packets(self, packets: List[bytes]) -> bytes:
         """数据包重组"""
         return b''.join(packets)
@@ -462,43 +462,43 @@ def test_packet_management():
 
 **技术实现要点**:
 ```python
-from PyQt6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, 
+from PyQt6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout,
                             QComboBox, QPushButton, QLabel)
 from PyQt6.QtCore import pyqtSignal
 
 class SerialConfigDialog(QDialog):
     connection_established = pyqtSignal(str)
-    
+
     def __init__(self, serial_manager: SerialManager):
         super().__init__()
         self.serial_manager = serial_manager
         self.setup_ui()
-    
+
     def setup_ui(self):
         layout = QVBoxLayout()
-        
+
         # 设备选择
         self.port_combo = QComboBox()
         self.refresh_ports()
-        
+
         # 波特率选择
         self.baudrate_combo = QComboBox()
         self.baudrate_combo.addItems(['9600', '19200', '38400', '57600', '115200'])
-        
+
         # 连接按钮
         self.connect_btn = QPushButton("连接")
         self.connect_btn.clicked.connect(self.toggle_connection)
-        
+
         # 状态显示
         self.status_label = QLabel("未连接")
-        
+
         layout.addWidget(QLabel("串口:"))
         layout.addWidget(self.port_combo)
         layout.addWidget(QLabel("波特率:"))
         layout.addWidget(self.baudrate_combo)
         layout.addWidget(self.connect_btn)
         layout.addWidget(self.status_label)
-        
+
         self.setLayout(layout)
 ```
 
@@ -554,12 +554,12 @@ class ProtocolDefinition:
 class ProtocolParser:
     def __init__(self):
         self.protocols: Dict[str, ProtocolDefinition] = {}
-    
+
     def parse_definition(self, config: Dict[str, Any]) -> ProtocolDefinition:
         """解析协议定义配置"""
         fields = []
         offset = 0
-        
+
         for field_config in config.get('fields', []):
             field = ProtocolField(
                 name=field_config['name'],
@@ -571,7 +571,7 @@ class ProtocolParser:
             )
             fields.append(field)
             offset += field.length
-        
+
         return ProtocolDefinition(
             name=config['name'],
             fields=fields,
@@ -600,7 +600,7 @@ def test_protocol_parsing():
             {"name": "checksum", "type": "checksum", "length": 1}
         ]
     }
-    
+
     parser = ProtocolParser()
     protocol = parser.parse_definition(config)
     assert protocol.name == "StandardProtocol"
@@ -633,32 +633,32 @@ class ProtocolParseEngine:
         self.last_data_time = 0
         self.timeout = 500  # 默认500ms
         self.parse_start_time = 0
-    
+
     async def parse_data(self, data: bytes) -> Optional[Dict[str, Any]]:
         """实时解析数据"""
         start_time = time.time()
         self.buffer.extend(data)
         self.last_data_time = time.time()
-        
+
         try:
             result = await self._parse_buffer()
             parse_time = (time.time() - start_time) * 1000
-            
+
             # 性能检查
             if parse_time > 10:  # 10ms限制
                 print(f"Warning: Parse time {parse_time:.2f}ms > 10ms")
-            
+
             return result
         except Exception as e:
             print(f"Parse error: {e}")
             return None
-    
+
     async def _parse_buffer(self):
         """解析缓冲区数据"""
         # 分段识别
         if not self._identify_protocol_start():
             return None
-        
+
         # 解析各字段
         result = {}
         for field in self.protocol.fields:
@@ -673,17 +673,17 @@ class ProtocolParseEngine:
                 if len(self.buffer) < field.offset + field.length:
                     return None  # 数据不完整
                 field_data = self.buffer[field.offset:field.offset + field.length]
-            
+
             result[field.name] = field_data
-        
+
         return result
-    
+
     def _identify_protocol_start(self) -> bool:
         """识别协议起始"""
         # 查找头标识
-        head_field = next((f for f in self.protocol.fields 
+        head_field = next((f for f in self.protocol.fields
                           if f.field_type == FieldType.HEAD), None)
-        
+
         if head_field and head_field.validation:
             expected_head = bytes.fromhex(head_field.validation.replace('0x', ''))
             for i in range(len(self.buffer) - len(expected_head) + 1):
@@ -710,18 +710,18 @@ import pytest
 def test_parse_performance():
     """测试解析性能"""
     engine = ProtocolParseEngine(test_protocol)
-    
+
     # 生成大量测试数据
     test_data = generate_test_packets(1000)
-    
+
     start_time = time.time()
     for packet in test_data:
         result = asyncio.run(engine.parse_data(packet))
         assert result is not None
-    
+
     total_time = time.time() - start_time
     avg_time = total_time / len(test_data) * 1000
-    
+
     assert avg_time < 10, f"Average parse time {avg_time:.2f}ms > 10ms"
 ```
 
@@ -740,7 +740,7 @@ def test_parse_performance():
 
 **技术实现要点**:
 ```python
-from PyQt6.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, 
+from PyQt6.QtWidgets import (QMainWindow, QWidget, QVBoxLayout,
                             QHBoxLayout, QTabWidget, QSplitter)
 from PyQt6.QtCore import Qt, QTimer
 
@@ -749,80 +749,80 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("SmartCom - 自定义串口工具")
         self.setGeometry(100, 100, 1200, 800)
-        
+
         self.setup_ui()
         self.setup_timers()
-    
+
     def setup_ui(self):
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
-        
+
         # 主布局
         main_layout = QVBoxLayout()
-        
+
         # 工具栏区域
         toolbar_layout = QHBoxLayout()
         self.setup_toolbar(toolbar_layout)
-        
+
         # 多窗口管理区域
         self.window_manager = WindowManager()
         window_widget = self.window_manager.create_window_container()
-        
+
         main_layout.addLayout(toolbar_layout)
         main_layout.addWidget(window_widget)
-        
+
         central_widget.setLayout(main_layout)
-    
+
     def setup_toolbar(self, layout):
         """设置工具栏"""
         from PyQt6.QtWidgets import QToolBar
         from PyQt6.QtGui import QAction
-        
+
         toolbar = QToolBar()
-        
+
         # 连接动作
         connect_action = QAction("连接", self)
         connect_action.triggered.connect(self.on_connect)
         toolbar.addAction(connect_action)
-        
+
         # 断开动作
         disconnect_action = QAction("断开", self)
         disconnect_action.triggered.connect(self.on_disconnect)
         toolbar.addAction(disconnect_action)
-        
+
         layout.addWidget(toolbar)
 
 class WindowManager:
     def __init__(self):
         self.windows = {}
         self.tab_widget = QTabWidget()
-    
+
     def create_window_container(self) -> QWidget:
         """创建窗口容器"""
         container = QWidget()
         layout = QVBoxLayout()
-        
+
         # 创建不同类型的窗口
         self.create_raw_data_window()
         self.create_protocol_window()
         self.create_filter_window()
         self.create_waveform_window()
-        
+
         layout.addWidget(self.tab_widget)
         container.setLayout(layout)
         return container
-    
+
     def create_raw_data_window(self):
         """创建原始数据窗口"""
         from PyQt6.QtWidgets import QTextEdit
-        
+
         raw_widget = QTextEdit()
         raw_widget.setReadOnly(True)
         raw_widget.setFont(QFont("Courier", 9))
-        
+
         self.tab_widget.addTab(raw_widget, "原始数据")
         self.windows['raw'] = raw_widget
-    
+
     def sync_data(self, data_type: str, data: Any):
         """同步数据到所有窗口"""
         for window_type, widget in self.windows.items():
@@ -847,17 +847,17 @@ def test_main_window_layout(qtbot):
     """测试主窗口布局"""
     main_window = MainWindow()
     qtbot.addWidget(main_window)
-    
+
     main_window.show()
     qtbot.waitExposed()
-    
+
     # 检查窗口标题
     assert main_window.windowTitle() == "SmartCom - 自定义串口工具"
-    
+
     # 检查窗口大小
     assert main_window.width() == 1200
     assert main_window.height() == 800
-    
+
     # 检查标签页
     assert main_window.window_manager.tab_widget.count() >= 4
 ```
@@ -914,7 +914,7 @@ Closes #任务ID
 
 ### 冲突处理流程
 1. **检测冲突**: `git rebase origin/master`
-2. **冲突时**: 
+2. **冲突时**:
    ```bash
    # 提交冲突状态，不要合并
    git add .
@@ -1063,7 +1063,7 @@ Week 15-16: ✅ 集成测试与优化发布
 
 ---
 
-> 📌 **重要提醒**: 
+> 📌 **重要提醒**:
 > - 所有feature分支永久保留，不允许删除！
 > - 每个任务完成后必须通过验收标准
 > - AI Agent初步审查 → 项目负责人最终审核

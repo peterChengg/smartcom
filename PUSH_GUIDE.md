@@ -53,7 +53,7 @@ git push origin master
 # 推送 INIT-1 分支
 git push origin feature/agent-a/init-1
 
-# 推送 INIT-2 分支  
+# 推送 INIT-2 分支
 git push origin feature/agent-a/init-2
 ```
 

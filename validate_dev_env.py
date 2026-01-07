@@ -9,11 +9,11 @@ import subprocess
 from pathlib import Path
 
 
-def check_dev_files():
+def check_dev_files() -> bool:
     """Check that development files exist."""
     dev_files = [
         "setup_dev.sh",
-        "CONTRIBUTING.md", 
+        "CONTRIBUTING.md",
         "DEVELOPMENT.md",
         ".github/workflows/ci.yml",
         ".github/workflows/code-quality.yml",
@@ -25,7 +25,7 @@ def check_dev_files():
         ".env.example",
         "docs/README.md",
     ]
-    
+
     print("🔍 Checking development files...")
     missing_files = []
     for file_path in dev_files:
@@ -33,7 +33,7 @@ def check_dev_files():
             print(f"  ✅ {file_path}")
         else:
             missing_files.append(file_path)
-    
+
     if missing_files:
         print(f"❌ Missing development files: {missing_files}")
         return False
@@ -41,16 +41,16 @@ def check_dev_files():
     return True
 
 
-def check_scripts():
+def check_scripts() -> bool:
     """Check development scripts."""
     scripts = [
         "scripts/run_tests.sh",
-        "scripts/run_lint.sh", 
+        "scripts/run_lint.sh",
         "scripts/format_code.sh",
         "scripts/clean.sh",
         "activate_dev.sh",
     ]
-    
+
     print("\n🔍 Checking development scripts...")
     missing_scripts = []
     for script in scripts:
@@ -62,7 +62,7 @@ def check_scripts():
                 print(f"  ⚠️  {script} (not executable)")
         else:
             missing_scripts.append(script)
-    
+
     if missing_scripts:
         print(f"❌ Missing scripts: {missing_scripts}")
         return False
@@ -70,13 +70,13 @@ def check_scripts():
     return True
 
 
-def check_dev_configuration():
+def check_dev_configuration() -> bool:
     """Check development configuration files."""
     print("\n🔍 Checking development configuration...")
-    
+
     # Check .editorconfig
     if Path(".editorconfig").exists():
-        with open(".editorconfig", 'r') as f:
+        with open(".editorconfig", "r") as f:
             content = f.read()
             if "root = true" in content and "[*.py]" in content:
                 print("  ✅ .editorconfig properly configured")
@@ -85,87 +85,83 @@ def check_dev_configuration():
     else:
         print("  ❌ .editorconfig missing")
         return False
-    
+
     # Check .vscode settings
     if Path(".vscode/settings.json").exists():
         print("  ✅ VS Code settings configured")
     else:
         print("  ❌ VS Code settings missing")
         return False
-    
+
     # Check pre-commit config
     if Path(".pre-commit-config.yaml").exists():
         print("  ✅ Pre-commit hooks configured")
     else:
         print("  ❌ Pre-commit configuration missing")
         return False
-    
+
     return True
 
 
-def check_ci_cd():
+def check_ci_cd() -> bool:
     """Check CI/CD configuration."""
     print("\n🔍 Checking CI/CD configuration...")
-    
-    ci_files = [
-        ".github/workflows/ci.yml",
-        ".github/workflows/code-quality.yml"
-    ]
-    
+
+    ci_files = [".github/workflows/ci.yml", ".github/workflows/code-quality.yml"]
+
     for ci_file in ci_files:
         if Path(ci_file).exists():
             print(f"  ✅ {ci_file}")
         else:
             print(f"  ❌ {ci_file} missing")
             return False
-    
+
     return True
 
 
-def check_documentation():
+def check_documentation() -> bool:
     """Check documentation structure."""
     print("\n🔍 Checking documentation structure...")
-    
-    doc_dirs = [
-        "docs/api",
-        "docs/user", 
-        "docs/developer"
-    ]
-    
+
+    doc_dirs = ["docs/api", "docs/user", "docs/developer"]
+
     for doc_dir in doc_dirs:
         if Path(doc_dir).exists():
             print(f"  ✅ {doc_dir}/")
         else:
             print(f"  ❌ {doc_dir}/ missing")
             return False
-    
+
     # Check main documentation files
     if Path("docs/README.md").exists():
         print("  ✅ docs/README.md")
     else:
         print("  ❌ docs/README.md missing")
         return False
-    
+
     return True
 
 
-def check_dev_tools():
+def check_dev_tools() -> bool:
     """Check if development tools are available."""
     print("\n🔍 Checking development tools...")
-    
+
     tools = {
         "python3": "Python 3",
         "pip3": "pip",
         "git": "Git",
     }
-    
+
     missing_tools = []
     for tool, name in tools.items():
         try:
-            result = subprocess.run([tool, "--version"], 
-                                  capture_output=True, text=True)
+            result = subprocess.run([tool, "--version"], capture_output=True, text=True)
             if result.returncode == 0:
-                version = result.stdout.split()[1] if len(result.stdout.split()) > 1 else "unknown"
+                version = (
+                    result.stdout.split()[1]
+                    if len(result.stdout.split()) > 1
+                    else "unknown"
+                )
                 print(f"  ✅ {name} {version}")
             else:
                 print(f"  ❌ {name} not working")
@@ -173,23 +169,24 @@ def check_dev_tools():
         except FileNotFoundError:
             print(f"  ❌ {name} not found")
             missing_tools.append(tool)
-    
+
     if missing_tools:
         print(f"❌ Missing tools: {missing_tools}")
         return False
-    
+
     return True
 
 
-def test_setup_script():
+def test_setup_script() -> bool:
     """Test setup script syntax."""
     print("\n🔍 Testing setup script syntax...")
-    
+
     if Path("setup_dev.sh").exists():
         try:
             # Check script syntax
-            result = subprocess.run(["bash", "-n", "setup_dev.sh"], 
-                                  capture_output=True, text=True)
+            result = subprocess.run(
+                ["bash", "-n", "setup_dev.sh"], capture_output=True, text=True
+            )
             if result.returncode == 0:
                 print("  ✅ setup_dev.sh syntax is valid")
             else:
@@ -201,39 +198,39 @@ def test_setup_script():
     else:
         print("  ❌ setup_dev.sh not found")
         return False
-    
+
     return True
 
 
-def main():
+def main() -> int:
     """Main validation function."""
     print("🚀 SmartCom Development Environment Validation\n")
-    
+
     all_passed = True
-    
+
     # Check all aspects
     if not check_dev_files():
         all_passed = False
-        
+
     if not check_scripts():
         all_passed = False
-        
+
     if not check_dev_configuration():
         all_passed = False
-        
+
     if not check_ci_cd():
         all_passed = False
-        
+
     if not check_documentation():
         all_passed = False
-        
+
     if not check_dev_tools():
         all_passed = False
-        
+
     if not test_setup_script():
         all_passed = False
-    
-    print(f"\n{'='*60}")
+
+    print(f"\n{'=' * 60}")
     if all_passed:
         print("🎉 All development environment checks passed! ✅")
         print("Development environment is properly configured.")

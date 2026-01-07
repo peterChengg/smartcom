@@ -157,7 +157,7 @@ class ProtocolParser(ABC):
     async def parse(self, data: bytes) -> Optional[Dict[str, Any]]:
         """Parse incoming data and return protocol fields"""
         pass
-    
+
     @abstractmethod
     def validate(self, packet: Dict[str, Any]) -> bool:
         """Validate parsed packet"""
