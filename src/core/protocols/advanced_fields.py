@@ -392,9 +392,9 @@ class AdvancedProtocolParser(ProtocolParser):
     def __init__(self, protocol: AdvancedProtocolDefinition):
         super().__init__(protocol)
 
-        self.frame_buffer: Dict[
-            int, List[bytes]
-        ] = {}  # Buffer for incomplete multi-frame packets
+        self.frame_buffer: Dict[int, List[bytes]] = (
+            {}
+        )  # Buffer for incomplete multi-frame packets
         self.current_variant: Optional[str] = None
         self.reassembly_timeout = protocol.parse_timeout
 
