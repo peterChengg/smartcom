@@ -22,6 +22,19 @@ from .encryption import (
     XOREncryption,
 )
 
+from .advanced_fields import (
+    AdvancedProtocolDefinition,
+    AdvancedProtocolParser,
+    ConditionalField,
+    DynamicField,
+    MultiFrameField,
+    TransformationField,
+    create_conditional_field,
+    create_dynamic_field,
+    create_multi_frame_field,
+    create_transformation_field,
+)
+
 __all__ = [
     # DSL Parser
     "ProtocolDSLParser",
@@ -34,4 +47,15 @@ __all__ = [
     "Base64Encoding",
     "EncryptionFactory",
     "EncryptionError",
+    # Advanced Fields
+    "AdvancedProtocolDefinition",
+    "AdvancedProtocolParser",
+    "ConditionalField",
+    "DynamicField",
+    "MultiFrameField",
+    "TransformationField",
+    "create_conditional_field",
+    "create_dynamic_field",
+    "create_multi_frame_field",
+    "create_transformation_field",
 ]

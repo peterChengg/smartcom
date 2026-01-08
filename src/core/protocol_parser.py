@@ -78,8 +78,8 @@ class ProtocolDefinition:
     min_length: int = 0
     max_length: int = 1024
     checksum_type: str = "none"  # none, crc16, crc32, xor, sum
-    encryption: Optional[str] = None
-    custom_validation: Optional[str] = None
+    encryption: Optional[Dict[str, Any]] = None
+    custom_validation: Optional[List[Dict[str, Any]]] = None
     parse_timeout: float = 0.5
 
 
