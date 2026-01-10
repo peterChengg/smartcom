@@ -28,15 +28,15 @@ class TestDataProcessor:
     def test_process_packet(self):
         """测试处理数据包"""
         processor = DataProcessor()
-        
+
         # 添加过滤器、转换器、着色器
         processor.add_filter(lambda p: p.get("value", 0) > 5)
         processor.add_transformer(lambda p: {**p, "doubled": p.get("value", 0) * 2})
         processor.add_colorizer(lambda p: "blue" if p.get("value", 0) > 10 else "gray")
-        
+
         packet = {"value": 15}
         result = processor.process_packet(packet)
-        
+
         assert result is not None
         assert result["doubled"] == 30
         assert result["_color"] == "blue"
@@ -48,14 +48,14 @@ class TestFieldFilter:
     def test_eq_filter(self):
         """测试等值过滤"""
         filter_obj = FieldFilter("cmd", 0x10)
-        
+
         assert filter_obj({"cmd": 0x10}) is True
         assert filter_obj({"cmd": 0x15}) is False
 
     def test_gt_filter(self):
         """测试大于过滤"""
         filter_obj = FieldFilter("value", 100, "gt")
-        
+
         assert filter_obj({"value": 150}) is True
         assert filter_obj({"value": 50}) is False
 
@@ -66,10 +66,10 @@ class TestFieldTransformer:
     def test_transform(self):
         """测试字段转换"""
         transformer = FieldTransformer("value", lambda x: x * 2)
-        
+
         packet = {"value": 15}
         result = transformer(packet)
-        
+
         assert result["value"] == 30
 
 
@@ -80,10 +80,10 @@ class TestFieldColorizer:
         """测试字段着色"""
         color_map = {0x10: "blue", 0x15: "green"}
         colorizer = FieldColorizer("cmd", color_map)
-        
+
         packet = {"cmd": 0x10}
         result = colorizer(packet)
-        
+
         assert result == "blue"
 
 
@@ -123,9 +123,9 @@ class TestCreatePacketProcessor:
         """测试创建带组件的处理器"""
         filters = [lambda p: p.get("value", 0) > 5]
         colorizers = [lambda p: "green" if p.get("status") == "ok" else "red"]
-        
+
         processor = create_packet_processor(filters=filters, colorizers=colorizers)
-        
+
         assert len(processor.filters) == 1
         assert len(processor.colorizers) == 1
 
