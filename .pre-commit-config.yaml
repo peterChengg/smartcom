@@ -41,3 +41,11 @@ repos:
         stages: [pre-commit]
         pass_filenames: false
         always_run: true
+
+      - id: tester-commit-check
+        name: Tester Commit Check
+        entry: bash scripts/pre-commit-check.sh
+        language: system
+        stages: [pre-commit]
+        always_run: true
+        pass_filenames: false
