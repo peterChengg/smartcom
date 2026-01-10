@@ -333,9 +333,7 @@ class FieldPanel:
             "min_value": node.min_value,
             "max_value": node.max_value,
             "children": children,
-            "visible": True,
-            "expanded": node.name in self.expanded_nodes,
-            "path": node.get_path(),
+            "expanded": depth < self.auto_expand_depth or node.name in self.expanded_nodes,
         }
 
     def toggle_node_expansion(self, node_path: str) -> None:
