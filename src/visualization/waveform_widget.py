@@ -118,6 +118,7 @@ class WaveformWidget:
         # 交互状态
         self.mouse_pos: Tuple[int, int] = (0, 0)
         self.crosshair_value: Optional[float] = None
+        self._current_time: float = 0.0
         self.selected_channels: List[str] = []
 
     def add_channel(self, channel: WaveformChannel) -> None:
@@ -194,7 +195,9 @@ class WaveformWidget:
                 continue
 
             # 应用缩放和平移
-            filtered_data = self._apply_filters(channel_data, current_time)
+            current_time = time.time()
+            cutoff_time = current_time - self.time_window
+            filtered_data = self._apply_filters(channel_data, cutoff_time)
             
             channels_data[channel.name] = {
                 "data": filtered_data,
